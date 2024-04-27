@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1035372436836",
+    "project_id": "flashcards-34d32",
+    "storage_bucket": "flashcards-34d32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1035372436836:android:d9223196c12f9ed46b2e71",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8rvxZuuZNUOKPZ9nTbtS6KmvAnPKYRFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

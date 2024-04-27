@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="enter">Вход</string>
+    <string name="email">Email</string>
+    <string name="password">Пароль</string>
+    <string name="repeat_password">Повторите пароль</string>
+    <string name="btn_enter">Войти</string>
+    <string name="link_registration">Зарегистрироваться</string>
+    <string name="registration">Регистрация</string>
+    <string name="title_activity_all_cards">AllCards</string>
+    <string name="title_activity_all_cards.java">AllCards.java</string>
+</resources>
