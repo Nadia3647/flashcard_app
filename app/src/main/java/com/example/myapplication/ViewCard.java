@@ -69,7 +69,7 @@ public class ViewCard extends AppCompatActivity implements View.OnClickListener 
     private static Queue<Card> trainingCardsQueue;
 
     private int langDirection;
-    private int i;
+    private int inc;
 
 
     // Debug
@@ -89,27 +89,19 @@ public class ViewCard extends AppCompatActivity implements View.OnClickListener 
         tvTitle = (TextView) findViewById(R.id.tvCardTitle);
         tvCard = (TextView) findViewById(R.id.tvCard);
         try {
-            Serializable serializable = getIntent().getSerializableExtra("Deck");
-            if (serializable instanceof Deck) {
-                thisDeck = (Deck) serializable;
-                Log.d("debug", "1" + thisDeck.cards);
-                cards = thisDeck.getCards();
-                Log.d("debug", "2" + cards.toString());
-                currCard = cards.get(0);
-                if (currCard != null) {
-                    Log.d("debug", "3" + currCard);
-                    tvTitle.setText(thisDeck.title);
-                    tvCard.setText(currCard.getItem1());
-                } else {
-                    Log.d("debug", "Error: cards is null or empty");
-                }
-            } else {
-                Log.d("debug", "Error: Object is not of type Deck");
-            }
-        } catch (ClassCastException e) {
-            Log.e("debug", "Error while getting Deck from Intent", e);
+            thisDeck = (Deck) getIntent().getSerializableExtra("Deck");
+            cards = thisDeck.getCards();
+            currCard = cards.get(inc);
+            tvTitle.setText(thisDeck.title);
+            tvCard.setText(currCard.getItem1().toString());
+            tvCard.setTypeface(Typeface.DEFAULT_BOLD);
+        }
+        catch(Exception e){
+            Log.d("debug", "Empty deck");
         }
 
+        String s = cards.get(0).getItem1();
+        Log.d("debug", "Empty deck"+s);
 
     }
 
@@ -139,7 +131,7 @@ public class ViewCard extends AppCompatActivity implements View.OnClickListener 
     private void NextOrEndForTraining() {
 
         if(cards != null){
-            currCard = cards.get(i);
+            currCard = cards.get(inc);
         }
 
         if (currCard != null) {
@@ -170,7 +162,7 @@ public class ViewCard extends AppCompatActivity implements View.OnClickListener 
 
         } else if (v == Button2) {
             setCardParam(2);
-            i++;
+            inc++;
             NextOrEndForTraining();
 
         } else if (v == Button3) {

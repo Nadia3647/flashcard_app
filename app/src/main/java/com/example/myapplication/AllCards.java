@@ -97,7 +97,7 @@ public class AllCards extends AppCompatActivity implements View.OnClickListener 
                 cards.add((new Card(edtFront.getText().toString(), edtBack.getText().toString(), 2, giveCurrentDay(), giveCurrentMonth(), giveCurrentYear(),  giveCurrentDay(), giveCurrentMonth(), giveCurrentYear(), 0, 0, 0, getNewUUID() )));
 
             }
-            deck.cards = cards;
+            deck.setCards(cards);
             deck.title = edtTitle.getText().toString();
             deck.author = username;
             deck.Uid = FirebaseAuth.getInstance().getUid();

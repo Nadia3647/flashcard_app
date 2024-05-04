@@ -14,11 +14,12 @@ import java.util.function.Predicate;
 
 public class Deck  implements Serializable {
     String title, author, Uid, deckId;
-    List<Card> cards = new ArrayList<>();
+    private List<Card> cards;
 
     public Deck(){
 
     }
+
 
     public Deck (String deckId, String Uid, String title, String author, List<Card> cards){
         this.deckId = deckId;
@@ -49,9 +50,7 @@ public class Deck  implements Serializable {
         return (nextPracticeDate);
     }
 
-    public static LocalDate giveCurrentDate() {
-        return LocalDate.now();
-    }
+
 
     public String getTitle() {
         return title;
@@ -65,5 +64,8 @@ public class Deck  implements Serializable {
     }
     public List<Card> getCards(){
         return cards;
+    }
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
     }
 }

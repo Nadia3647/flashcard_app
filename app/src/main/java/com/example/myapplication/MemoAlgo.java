@@ -44,7 +44,7 @@ public class MemoAlgo {
         LocalDate nextPracticeDate = toDate(nextPracticeTime);
 
         // Store the nextPracticeDate in the database
-        card.updateParameters(nextPracticeDate, repetitions, easiness, interval);
+        //card.updateParameters(nextPracticeDate, repetitions, easiness, interval);
     }
     public static LocalDate toDate(long nextPracticeTime) {
         LocalDate nextPracticeDate = new java.util.Date(nextPracticeTime).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();

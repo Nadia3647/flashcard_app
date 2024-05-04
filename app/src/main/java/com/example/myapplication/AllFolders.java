@@ -42,7 +42,6 @@ public class AllFolders extends AppCompatActivity implements View.OnClickListene
     ArrayList<Deck> allDecks = new ArrayList<>();
     ArrayList<String> myDeckKeys = new ArrayList<>();
     Map<String, Deck> keyedDecks = new HashMap<>();
-    ArrayList<Deck> personalDecks = new ArrayList<>();
     private ListView lvDecks;
 
     private boolean isGuest = false;
@@ -148,9 +147,7 @@ public class AllFolders extends AppCompatActivity implements View.OnClickListene
 
         }
     }
-    public void searchPublic(){
-        return;
-    }
+
     public boolean checkGuest(){
         FirebaseUser user = mAuth.getCurrentUser();
         if (user==null){
@@ -167,23 +164,12 @@ public class AllFolders extends AppCompatActivity implements View.OnClickListene
         startActivity(i);
     }
 
-    public void createDeck(){
-        Intent i = new Intent(AllFolders.this, CreateFolder.class);
-        startActivity(i);
-    }
 
     public void addCards(){
         Intent i = new Intent (AllFolders.this, AllCards.class);
         startActivity(i);
     }
 
-    public void switchToPublic(){
-        inPublic = true;
-    }
-
-    public void switchToMine(){
-        inPublic = false;
-    }
 
     public void getUserData(DatabaseReference thisUser, final OnGetDataListener listener){
 
@@ -195,14 +181,11 @@ public class AllFolders extends AppCompatActivity implements View.OnClickListene
                     //usr = snapshot.getValue(User.class);
 
 
-                    String hi = snapshot.getValue(String.class);
-                    myDeckKeys.add(hi);
                 }
 
 
-                for (Deck d : allDecks){
-                    keyedDecks.put(d.deckId, d);
-                }
+
+
                 listener.onSuccess(datasnapshot);
             }
             @Override

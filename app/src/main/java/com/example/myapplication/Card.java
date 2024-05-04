@@ -22,6 +22,9 @@ public class Card implements Serializable {
 
     private String uuid;
     private Boolean isSelected;
+    Card(){
+
+    }
 
     Card (String item1, String item2, int state,  int dayCreation, String monthCreation,
           int yearCreation, int dayNextPractice, String monthNextPractice, int yearNextPractice,
@@ -52,7 +55,6 @@ public class Card implements Serializable {
         this.setEasinessFactor(easinessFactor);
         this.setInterval(interval);
     }
-
 
 
 
@@ -153,4 +155,16 @@ public class Card implements Serializable {
 
 
     public void setIsSelected(Boolean isSelected) { this.isSelected = isSelected;}
+
+    public int getDayNextPractice() {
+        return dayNextPractice;
+    }
+
+    public String getMonthNextPractice() {
+        return monthNextPractice;
+    }
+
+    public int getYearNextPractice() {
+        return yearNextPractice;
+    }
 }
