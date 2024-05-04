@@ -31,16 +31,20 @@ import java.awt.font.NumericShaper;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+import java.util.function.Predicate;
 
 public class ViewCard extends AppCompatActivity implements View.OnClickListener {
     private List<Card> cards = new ArrayList<>();
+
     private TextView tvShuffle, tvOrder, tvInfo, tvTitle, tvCard;
     private ImageView ivShuffle, ivOrder, ivInfo;
 
@@ -66,6 +70,7 @@ public class ViewCard extends AppCompatActivity implements View.OnClickListener 
     // Variables
     private Card currCard;
     private Queue<Card> processedCardsQueue;
+    private Card currentCard;
     private static Queue<Card> trainingCardsQueue;
 
     private int langDirection;
@@ -91,37 +96,67 @@ public class ViewCard extends AppCompatActivity implements View.OnClickListener 
         try {
             thisDeck = (Deck) getIntent().getSerializableExtra("Deck");
             cards = thisDeck.getCards();
-            currCard = cards.get(inc);
-            tvTitle.setText(thisDeck.title);
-            tvCard.setText(currCard.getItem1().toString());
-            tvCard.setTypeface(Typeface.DEFAULT_BOLD);
+
+
         }
         catch(Exception e){
             Log.d("debug", "Empty deck");
         }
+        trainingCardsQueue = getTrainingQueue(cards);
+        if (trainingCardsQueue.isEmpty()) {
+            // No cards to train
+            showEndOfRevision();
 
-        String s = cards.get(0).getItem1();
-        Log.d("debug", "Empty deck"+s);
+        } else {
+            // Start cards scroll
+            NextOrEndForTraining();
+        }
 
     }
+    public Queue<Card> getTrainingQueue(List<Card> cards) {
+        Queue<Card> revision_queue = new LinkedList<>();
 
 
-    public static LocalDate toDate(long nextPracticeTime) {
-        LocalDate nextPracticeDate = new java.util.Date(nextPracticeTime).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        return (nextPracticeDate);
+        // Проходим по списку cards, а не по revision_queue
+        for (Card card : cards) {
+            Log.d("debug", " card " +card.getDayNextPractice());
+            Log.d("debug", " now " +giveCurrentDate().getDayOfMonth());
+            Log.d("debug", " card " +card.getDayNextPractice());
+            Log.d("debug", " now " +giveCurrentDate().getDayOfMonth());
+            if (card.getDayNextPractice() == giveCurrentDate().getDayOfMonth()
+                    && card.getMonthNextPractice().equalsIgnoreCase(giveCurrentDate().getMonth().toString())
+                    && card.getYearNextPractice() == giveCurrentDate().getYear()) {
+                revision_queue.add(card);
+            }
+        }
+
+        // Перемешиваем очередь
+        List<Card> list_to_shuffle = new LinkedList<>(revision_queue);
+        Collections.shuffle(list_to_shuffle);
+        revision_queue = new LinkedList<>(list_to_shuffle);
+
+        return revision_queue;
     }
-
     private void setCardParam(int quality) {
         // If the quality is not 1, card is not repeated so it is considered processed
         if (quality != 1){
             // Change card values
 //            currentCard.setState(Param.ACTIVE);
-            memoryCard = currCard;
-            MemoAlgo.SuperMemo2(currCard, quality);
+            memoryCard = currentCard;
+            MemoAlgo.SuperMemo2(currentCard, quality);
 
+            processedCardsQueue.add(currentCard);
 
         }
     }
+
+
+
+    public static LocalDate giveCurrentDate() {
+        return LocalDate.now();
+    }
+
+
 
     /**
      * Check if there is another card in the queue to be trained, show the question side if so.

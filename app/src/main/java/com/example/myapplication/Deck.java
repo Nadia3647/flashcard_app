@@ -44,13 +44,37 @@ public class Deck  implements Serializable {
 
         return toLearnList;
     }
+    public Queue<Card> getTrainingQueue() {
 
+        Queue<Card> revision_queue = new LinkedList<>();
+        Predicate<Card> pred = x -> (x.getDayNextPractice()==giveCurrentDate().getDayOfMonth()
+                && x.getMonthNextPractice()==giveCurrentDate().getMonth().toString()
+                && x.getYearNextPractice() == giveCurrentDate().getYear());
+
+        Iterator<Card> iterator = revision_queue.iterator();
+        while (iterator.hasNext()) {
+            Card card = iterator.next();
+
+            if (pred.test(card)) {
+                revision_queue.add(card);
+            }
+        }
+
+        // Shuffle the queue
+        List<Card> list_to_shuffle = new LinkedList<>(revision_queue);
+        Collections.shuffle(list_to_shuffle);
+        revision_queue = new LinkedList<>(list_to_shuffle);
+
+        return revision_queue;
+    }
     public static LocalDate toDate(long nextPracticeTime) {
         LocalDate nextPracticeDate = new java.util.Date(nextPracticeTime).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         return (nextPracticeDate);
     }
 
-
+    public static LocalDate giveCurrentDate() {
+        return LocalDate.now();
+    }
 
     public String getTitle() {
         return title;

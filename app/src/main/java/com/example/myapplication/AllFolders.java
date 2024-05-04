@@ -40,8 +40,6 @@ import java.util.Map;
 public class AllFolders extends AppCompatActivity implements View.OnClickListener{
 
     ArrayList<Deck> allDecks = new ArrayList<>();
-    ArrayList<String> myDeckKeys = new ArrayList<>();
-    Map<String, Deck> keyedDecks = new HashMap<>();
     private ListView lvDecks;
 
     private boolean isGuest = false;
@@ -69,20 +67,8 @@ public class AllFolders extends AppCompatActivity implements View.OnClickListene
             allDecks = (ArrayList<Deck>) getIntent().getSerializableExtra("allDecks");
         }
 
-        if (!isGuest) {
-            DatabaseReference thisUser = rootRef.getReference("Users").child(mAuth.getCurrentUser().getUid())
-                    .child("MyDecks");
-            getUserData(thisUser, new OnGetDataListener() {
 
-                @Override
-                public void onSuccess(DataSnapshot dataSnapshot) {
-                }
 
-                @Override
-                public void onFailure() {
-                }
-            });
-        }
 
 
         //get the users decks
@@ -170,35 +156,4 @@ public class AllFolders extends AppCompatActivity implements View.OnClickListene
         startActivity(i);
     }
 
-
-    public void getUserData(DatabaseReference thisUser, final OnGetDataListener listener){
-
-
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot datasnapshot){
-                for (DataSnapshot snapshot : datasnapshot.getChildren()){
-                    //usr = snapshot.getValue(User.class);
-
-
-                }
-
-
-
-
-                listener.onSuccess(datasnapshot);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                listener.onFailure();
-            }
-        };
-        thisUser.addListenerForSingleValueEvent(valueEventListener);
-    }
-
-    public interface OnGetDataListener {
-        //this is for callbacks
-        void onSuccess(DataSnapshot dataSnapshot);
-        void onFailure();
-    }
 }
