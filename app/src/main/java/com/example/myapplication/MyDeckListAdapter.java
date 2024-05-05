@@ -44,7 +44,7 @@ public class MyDeckListAdapter extends ArrayAdapter<Deck> {
 
         View v = inflater.inflate(R.layout.folder_lv_item, null);
 
-        TextView author = (TextView) v.findViewById(R.id.tvDeckAuthor);
+
         TextView title = (TextView) v.findViewById(R.id.tvDeckName);
         ImageButton btnDelete = (ImageButton) v.findViewById(R.id.btnDelete);
 
@@ -92,7 +92,6 @@ public class MyDeckListAdapter extends ArrayAdapter<Deck> {
         });
 
         Deck myDeck = deck.get(position);
-        author.setText("by " + myDeck.getAuthor());
         title.setText(myDeck.getTitle());
 
 

@@ -20,7 +20,7 @@ public class Card implements Serializable {
     private String monthNextPractice;
     private int yearNextPractice;
 
-    private String uuid;
+    private Integer uuid;
     private Boolean isSelected;
     Card(){
 
@@ -28,7 +28,7 @@ public class Card implements Serializable {
 
     Card (String item1, String item2, int state,  int dayCreation, String monthCreation,
           int yearCreation, int dayNextPractice, String monthNextPractice, int yearNextPractice,
-          int repetitions, float easinessFactor, int interval, String uuid){
+          int repetitions, float easinessFactor, int interval, Integer uuid){
         this.item1 = item1;
         this.item2 = item2;
         this.state = state;
@@ -119,7 +119,7 @@ public class Card implements Serializable {
 
 
 
-    public String getUuid() {
+    public Integer getUuid() {
         return uuid;
     }
 

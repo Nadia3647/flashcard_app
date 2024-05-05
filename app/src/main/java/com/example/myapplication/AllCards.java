@@ -83,7 +83,7 @@ public class AllCards extends AppCompatActivity implements View.OnClickListener 
         int id = v.getId();
         if (id == R.id.ivAdd || id == R.id.tvAddAnother) {
             if (!edtFront.getText().toString().equals("") && !edtBack.getText().toString().equals("")){
-                cards.add((new Card(edtFront.getText().toString(), edtBack.getText().toString(), 2,giveCurrentDay(), giveCurrentMonth(), giveCurrentYear(),  giveCurrentDay(), giveCurrentMonth(), giveCurrentYear(),  0, 0, 0, getNewUUID() )));
+                cards.add((new Card(edtFront.getText().toString(), edtBack.getText().toString(), 2,giveCurrentDay(), giveCurrentMonth(), giveCurrentYear(),  giveCurrentDay(), giveCurrentMonth(), giveCurrentYear(),  0, 0, 0, cards.size()-1)));
                 edtFront.setText("");
                 edtBack.setText("");
                 edtFront.requestFocus();
@@ -94,7 +94,7 @@ public class AllCards extends AppCompatActivity implements View.OnClickListener 
 
         } else if (id == R.id.ivSave || id == R.id.tvDone) {
             if (!edtFront.getText().toString().equals("") && !edtBack.getText().toString().equals("")){
-                cards.add((new Card(edtFront.getText().toString(), edtBack.getText().toString(), 2, giveCurrentDay(), giveCurrentMonth(), giveCurrentYear(),  giveCurrentDay(), giveCurrentMonth(), giveCurrentYear(), 0, 0, 0, getNewUUID() )));
+                cards.add((new Card(edtFront.getText().toString(), edtBack.getText().toString(), 2, giveCurrentDay(), giveCurrentMonth(), giveCurrentYear(),  giveCurrentDay(), giveCurrentMonth(), giveCurrentYear(), 0, 0, 0, cards.size()-1)));
 
             }
             deck.setCards(cards);

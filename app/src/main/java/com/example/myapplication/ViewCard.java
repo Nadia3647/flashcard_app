@@ -123,12 +123,12 @@ public class ViewCard extends AppCompatActivity implements View.OnClickListener 
         if (quality != 1){
             MemoAlgo.SuperMemo2(currentCard, quality);
             Log.d("debug", " nemo " +currentCard.getDayNextPractice());
-            updateCardInDatabase(thisDeck.getDeckId().toString(),currentCard.getUuid().toString(), currentCard,FirebaseDatabase.getInstance().getReference("Decks"));
+            updateCardInDatabase(thisDeck.getDeckId().toString(),currentCard.getUuid(), currentCard,FirebaseDatabase.getInstance().getReference("Decks"));
 
         }
     }
-    public void updateCardInDatabase(String deckId, String cardUuid, Card card, DatabaseReference ref) {
-        ref.child(deckId).child("cards").child(cardUuid).setValue(card);
+    public void updateCardInDatabase(String deckId, Integer cardUuid, Card card, DatabaseReference ref) {
+        ref.child(deckId).child("cards").child(cardUuid.toString()).setValue(card);
     }
 
 

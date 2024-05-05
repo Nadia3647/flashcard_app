@@ -40,19 +40,29 @@ public class DeckListAdapter extends ArrayAdapter<Deck> {
 
         View v = inflater.inflate(R.layout.folder_lv_item, null);
 
-        TextView author = (TextView) v.findViewById(R.id.tvDeckAuthor);
+
         TextView title = (TextView) v.findViewById(R.id.tvDeckName);
 
         ImageView learn = (ImageView) v.findViewById(R.id.learn);
+        ImageView edit = (ImageView) v.findViewById(R.id.btnDelete);
         Deck myDeck = deck.get(position);
 
-        author.setText("by " + myDeck.getAuthor());
+
         title.setText(myDeck.getTitle());
         learn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Deck", deck.get(position));
+                Intent i = new Intent(getContext(), ViewCard.class);
+                i.putExtras(bundle);
+                ctx.startActivity(i);
 
-
+            }
+        });
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("Deck", deck.get(position));
                 Intent i = new Intent(getContext(), ViewCard.class);
