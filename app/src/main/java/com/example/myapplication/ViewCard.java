@@ -1,52 +1,26 @@
 package com.example.myapplication;
 
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Pair;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.view.TextureView;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.myapplication.Deck;
-import com.example.myapplication.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
-import java.awt.font.NumericShaper;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
-import java.util.Set;
-import java.util.function.Predicate;
 
 public class ViewCard extends AppCompatActivity implements View.OnClickListener {
     private List<Card> cards = new ArrayList<>();
@@ -69,7 +43,7 @@ public class ViewCard extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_card);
         tvTitle = (TextView) findViewById(R.id.tvCardTitle);
-        tvCard = (TextView) findViewById(R.id.tvCard);
+        tvCard = (TextView) findViewById(R.id.lvCard);
         o = (TextView) findViewById(R.id.textView1);
         t = (TextView) findViewById(R.id.textView2);
         tr = (TextView) findViewById(R.id.textView3);
@@ -166,7 +140,7 @@ public class ViewCard extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View v) {
         int id = v.getId();
 
-        if (id == R.id.tvCard) {
+        if (id == R.id.lvCard) {
             showAnswerSide();
 
         } else if (id == R.id.textView1){

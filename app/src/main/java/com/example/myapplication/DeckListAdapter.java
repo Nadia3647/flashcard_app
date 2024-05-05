@@ -65,12 +65,13 @@ public class DeckListAdapter extends ArrayAdapter<Deck> {
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("Deck", deck.get(position));
-                Intent i = new Intent(getContext(), ViewCard.class);
+                Intent i = new Intent(getContext(), EditFolder.class);
                 i.putExtras(bundle);
                 ctx.startActivity(i);
 
             }
         });
+
 
         return v;
     }

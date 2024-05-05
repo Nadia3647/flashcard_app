@@ -92,8 +92,8 @@ public class AllFolders extends AppCompatActivity implements View.OnClickListene
         logout.setOnClickListener(this);
 
 
-            DeckListAdapter adapter = new DeckListAdapter(isGuest,this, R.layout.folder_lv_item, allDecks);
-            lvDecks.setAdapter(adapter);
+        DeckListAdapter adapter = new DeckListAdapter(isGuest,this, R.layout.folder_lv_item, allDecks);
+        lvDecks.setAdapter(adapter);
 
 
 
