@@ -44,60 +44,40 @@ import java.util.function.Predicate;
 
 public class ViewCard extends AppCompatActivity implements View.OnClickListener {
     private List<Card> cards = new ArrayList<>();
-
-    private TextView tvShuffle, tvOrder, tvInfo, tvTitle, tvCard;
-    private ImageView ivShuffle, ivOrder, ivInfo;
-
+    private TextView  tvTitle, tvCard;
     private Deck thisDeck;
+    private TextView o,t,tr,f,fi;
 
-
-    // Layout
-    private Button mSeeAnswerButton;
-    private Button Button1;
-    private Button Button2;
-    private Button Button3;
-    private Button Button4;
-    private Button Button5;
-
-    private TextView mTextViewQuestion;
-    private TextView mTextViewItem2;
-    private TextView cardsLeftText;
-
-    private ImageView speaker;
-
-
-
-    // Variables
-    private Card currCard;
     private Queue<Card> processedCardsQueue;
     private Card currentCard;
     private static Queue<Card> trainingCardsQueue;
-
-    private int langDirection;
     private int inc;
 
 
-    // Debug
+
     Card memoryCard;
-
-    // Thread
-
-
 
     @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_card);
-
-
         tvTitle = (TextView) findViewById(R.id.tvCardTitle);
         tvCard = (TextView) findViewById(R.id.tvCard);
+        o = (TextView) findViewById(R.id.textView1);
+        t = (TextView) findViewById(R.id.textView2);
+        tr = (TextView) findViewById(R.id.textView3);
+        f = (TextView) findViewById(R.id.textView4);
+        fi = (TextView) findViewById(R.id.textView5);
+        o.setOnClickListener(this);
+        t.setOnClickListener(this);
+        tr.setOnClickListener(this);
+        f.setOnClickListener(this);
+        fi.setOnClickListener(this);
+        tvCard.setOnClickListener(this);
         try {
             thisDeck = (Deck) getIntent().getSerializableExtra("Deck");
             cards = thisDeck.getCards();
-
-
         }
         catch(Exception e){
             Log.d("debug", "Empty deck");
@@ -106,7 +86,6 @@ public class ViewCard extends AppCompatActivity implements View.OnClickListener 
         if (trainingCardsQueue.isEmpty()) {
             // No cards to train
             showEndOfRevision();
-
         } else {
             // Start cards scroll
             NextOrEndForTraining();
@@ -115,14 +94,10 @@ public class ViewCard extends AppCompatActivity implements View.OnClickListener 
     }
     public Queue<Card> getTrainingQueue(List<Card> cards) {
         Queue<Card> revision_queue = new LinkedList<>();
-
-
         // Проходим по списку cards, а не по revision_queue
         for (Card card : cards) {
             Log.d("debug", " card " +card.getDayNextPractice());
-            Log.d("debug", " now " +giveCurrentDate().getDayOfMonth());
-            Log.d("debug", " card " +card.getDayNextPractice());
-            Log.d("debug", " now " +giveCurrentDate().getDayOfMonth());
+
             if (card.getDayNextPractice() == giveCurrentDate().getDayOfMonth()
                     && card.getMonthNextPractice().equalsIgnoreCase(giveCurrentDate().getMonth().toString())
                     && card.getYearNextPractice() == giveCurrentDate().getYear()) {
@@ -142,10 +117,11 @@ public class ViewCard extends AppCompatActivity implements View.OnClickListener 
         if (quality != 1){
             // Change card values
 //            currentCard.setState(Param.ACTIVE);
-            memoryCard = currentCard;
-            MemoAlgo.SuperMemo2(currentCard, quality);
 
-            processedCardsQueue.add(currentCard);
+            MemoAlgo.SuperMemo2(currentCard, quality);
+            Log.d("debug", " card " +currentCard);
+
+
 
         }
     }
@@ -162,15 +138,11 @@ public class ViewCard extends AppCompatActivity implements View.OnClickListener 
      * Check if there is another card in the queue to be trained, show the question side if so.
      * Otherwise, save training data in global deck and in datafile and show end of training screen.
      */
-    @RequiresApi(api = Build.VERSION_CODES.R)
-    private void NextOrEndForTraining() {
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void NextOrEndForTraining() {;
+        currentCard = trainingCardsQueue.poll();
 
-        if(cards != null){
-            currCard = cards.get(inc);
-        }
-
-        if (currCard != null) {
-
+        if (currentCard != null) {
             showQuestionSide();
         }
         else {
@@ -184,34 +156,36 @@ public class ViewCard extends AppCompatActivity implements View.OnClickListener 
      *
      * @param v view pressed by the user
      */
-    @RequiresApi(api = Build.VERSION_CODES.R)
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
+        int id = v.getId();
 
-        if (v == tvCard) {
+        if (id == R.id.tvCard) {
             showAnswerSide();
 
-        } else if (v == Button1){
-            trainingCardsQueue.add(currCard);
+        } else if (id == R.id.textView1){
+            trainingCardsQueue.add(currentCard);
             NextOrEndForTraining();
 
-        } else if (v == Button2) {
+        } else if (id == R.id.textView2) {
             setCardParam(2);
             inc++;
             NextOrEndForTraining();
 
-        } else if (v == Button3) {
+        } else if (id == R.id.textView3) {
             setCardParam(3);
             NextOrEndForTraining();
 
-        } else if (v == Button4) {
+        } else if (id == R.id.textView4) {
             setCardParam(4);
             NextOrEndForTraining();
 
         }
-        else if (v == Button5) {
-        setCardParam(5);
-        NextOrEndForTraining();
+        else if (id == R.id.textView5) {
+            setCardParam(5);
+            NextOrEndForTraining();
+
         }
         else {
             throw new IllegalStateException("Unknown clicked view : " + v);
@@ -222,7 +196,7 @@ public class ViewCard extends AppCompatActivity implements View.OnClickListener 
     /**
      * Set the end of revision layout when the user is done with the training
      */
-    @RequiresApi(api = Build.VERSION_CODES.R)
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void showEndOfRevision() {
 
 
@@ -238,7 +212,7 @@ public class ViewCard extends AppCompatActivity implements View.OnClickListener 
 
 
         tvTitle.setText(thisDeck.title);
-        tvCard.setText(this.currCard.getItem1().toString());
+        tvCard.setText(this.currentCard.getItem1().toString());
         tvCard.setTypeface(Typeface.DEFAULT_BOLD);
     }
 
@@ -252,23 +226,9 @@ public class ViewCard extends AppCompatActivity implements View.OnClickListener 
     private void showAnswerSide() {
 
         tvTitle.setText(thisDeck.title);
-        tvCard.setText(currCard.getItem2().toString());
+        tvCard.setText(currentCard.getItem2().toString());
         tvCard.setTypeface(Typeface.DEFAULT_BOLD);
     }
-
-//    /**
-//     * Set the saving layout when the user is done with the training, before end of revision layout
-//     */
-//    @RequiresApi(api = Build.VERSION_CODES.R)
-//    private void showSavingLayout() {
-//        setContentView(R.layout.saving_layout);
-//
-//        ProgressBar progressBar = findViewById(R.id.saving_progress_bar);
-//        progressBar.setProgress(0);
-//
-////        Param.GLOBAL_DECK.updateDeckAndDatabaseFromQueue(processedCardsQueue, progressBar);
-//        showEndOfRevision();
-//    }
 
 
 }

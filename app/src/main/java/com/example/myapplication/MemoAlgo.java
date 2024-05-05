@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.util.Log;
+
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -44,7 +46,8 @@ public class MemoAlgo {
         LocalDate nextPracticeDate = toDate(nextPracticeTime);
 
         // Store the nextPracticeDate in the database
-        //card.updateParameters(nextPracticeDate, repetitions, easiness, interval);
+        Log.d("debug", " card " +nextPracticeDate.getDayOfMonth());
+        card.updateParameters(nextPracticeDate.getDayOfMonth(), nextPracticeDate.getMonth().toString(), nextPracticeDate.getYear(), repetitions, easiness, interval);
     }
     public static LocalDate toDate(long nextPracticeTime) {
         LocalDate nextPracticeDate = new java.util.Date(nextPracticeTime).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
