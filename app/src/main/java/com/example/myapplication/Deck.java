@@ -45,6 +45,7 @@ public class Deck  implements Serializable {
         return toLearnList;
     }
     public Queue<Card> getTrainingQueue() {
+        List<Card> toLearnList = new ArrayList<Card>();
 
         Queue<Card> revision_queue = new LinkedList<>();
         Predicate<Card> pred = x -> (x.getDayNextPractice()==giveCurrentDate().getDayOfMonth()

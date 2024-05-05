@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,6 +25,11 @@ import android.widget.Toast;
 
 import com.example.myapplication.Deck;
 import com.example.myapplication.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -115,15 +121,14 @@ public class ViewCard extends AppCompatActivity implements View.OnClickListener 
     private void setCardParam(int quality) {
         // If the quality is not 1, card is not repeated so it is considered processed
         if (quality != 1){
-            // Change card values
-//            currentCard.setState(Param.ACTIVE);
-
             MemoAlgo.SuperMemo2(currentCard, quality);
-            Log.d("debug", " card " +currentCard);
-
-
+            Log.d("debug", " nemo " +currentCard.getDayNextPractice());
+            updateCardInDatabase(thisDeck.getDeckId().toString(),currentCard.getUuid().toString(), currentCard,FirebaseDatabase.getInstance().getReference("Decks"));
 
         }
+    }
+    public void updateCardInDatabase(String deckId, String cardUuid, Card card, DatabaseReference ref) {
+        ref.child(deckId).child("cards").child(cardUuid).setValue(card);
     }
 
 

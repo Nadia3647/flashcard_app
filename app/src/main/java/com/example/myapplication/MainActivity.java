@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     String uid = ds.child("uid").getValue(String.class);
                     String author = ds.child("author").getValue(String.class);
-                    String title = ds.child("title").getValue(String.class);List<Card> cards = new ArrayList<>();
+                    String title = ds.child("title").getValue(String.class);
+                    List<Card> cards = new ArrayList<>();
                     for (DataSnapshot cardSnapshot: ds.child("cards").getChildren()) {
                         Card card = cardSnapshot.getValue(Card.class);
                         cards.add(card);
