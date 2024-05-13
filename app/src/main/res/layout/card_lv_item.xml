@@ -3,58 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@drawable/border"
+    android:padding="10dp"
+    >
 
 
     <EditText
         android:id="@+id/edtBack"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/up_hint"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="back"
+        android:hint="@string/back"
         android:inputType="textMultiLine"
-        android:minHeight="48dp"
+        android:minHeight="38dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBack" />
+        app:layout_constraintTop_toBottomOf="@+id/edtFront" />
 
     <EditText
         android:id="@+id/edtFront"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:background="@color/up_hint"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="front"
+        android:hint="@string/front"
         android:inputType="textMultiLine"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFront" />
-
-    <TextView
-        android:id="@+id/tvFront"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Front"
+        android:minHeight="38dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Back"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtFront" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

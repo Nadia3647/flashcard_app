@@ -2,34 +2,29 @@ package com.example.myapplication;
 
 import android.util.Log;
 
+import com.example.myapplication.model.Card;
+
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
 
 public class MemoAlgo {
     public static void SuperMemo2(Card card, int quality) {
-
         // From https://stackoverflow.com/questions/49047159/spaced-repetition-algorithm-from-supermemo-sm-2
-
         if (quality < 0 || quality > 5) {
             // throw error here or ensure elsewhere that quality is always within 0-5
         }
-
         // retrieve the stored values (default values if new cards)
         int repetitions = card.getRepetitions();
         float easiness = card.getEasinessFactor();
         int interval = card.getInterval();
-
         // easiness factor
         easiness = (float) Math.max(1.3, easiness + 0.1 - (5.0 - quality) * (0.08 + (5.0 - quality) * 0.02));
-
         // repetitions
         if (quality < 3) {
             repetitions = 0;
         } else {
             repetitions += 1;
         }
-
         // interval
         if (repetitions <= 1) {
             interval = 1;
@@ -45,19 +40,11 @@ public class MemoAlgo {
         long nextPracticeTime = now + millisecondsInDay*interval;
         LocalDate nextPracticeDate = toDate(nextPracticeTime);
 
-        // Store the nextPracticeDate in the database
-        Log.d("debug", " card " +nextPracticeDate.getDayOfMonth());
-        card.updateParameters(nextPracticeDate.getDayOfMonth(), nextPracticeDate.getMonth().toString(), nextPracticeDate.getYear(), repetitions, easiness, interval);
+        // Store the nextPracticeDate in the database;
+         card.updateParameters(nextPracticeDate.getDayOfMonth(), nextPracticeDate.getMonthValue(), nextPracticeDate.getYear(), repetitions, easiness, interval);
     }
     public static LocalDate toDate(long nextPracticeTime) {
         LocalDate nextPracticeDate = new java.util.Date(nextPracticeTime).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         return (nextPracticeDate);
     }
-
-    public static LocalDate giveCurrentDate() {
-        LocalDate currentDate = LocalDate.now();
-        return (currentDate);
-    }
-
-
 }

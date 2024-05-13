@@ -4,4 +4,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="background">#F1F0F6</color>
     <color name="btn_color">#9F84EC</color>
+    <color name="up_hint">#E2DAF9</color>\
+    <color name="up_plus_hint">#BEACF4</color>
+
+
+
 </resources>

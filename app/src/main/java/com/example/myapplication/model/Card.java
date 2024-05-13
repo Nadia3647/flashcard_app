@@ -1,37 +1,27 @@
-package com.example.myapplication;
-
-
+package com.example.myapplication.model;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.Date;
-
 public class Card implements Serializable {
-
     private String item1;
     private String item2;
     private int repetitions;
     private float easinessFactor;
     private int interval;
-    private int state;
     private int dayCreation;
-    private String monthCreation;
+    private int monthCreation;
     private int yearCreation;
     private int dayNextPractice;
-    private String monthNextPractice;
+    private int monthNextPractice;
     private int yearNextPractice;
-
     private Integer uuid;
-    private Boolean isSelected;
-    Card(){
+    public Card(){
 
     }
 
-    Card (String item1, String item2, int state,  int dayCreation, String monthCreation,
-          int yearCreation, int dayNextPractice, String monthNextPractice, int yearNextPractice,
+    public Card (String item1, String item2, int dayCreation, int monthCreation,
+          int yearCreation, int dayNextPractice, int monthNextPractice, int yearNextPractice,
           int repetitions, float easinessFactor, int interval, Integer uuid){
         this.item1 = item1;
         this.item2 = item2;
-        this.state = state;
         this.repetitions = repetitions;
         this.easinessFactor = easinessFactor;
         this.interval = interval;
@@ -41,12 +31,10 @@ public class Card implements Serializable {
         this.dayNextPractice = dayNextPractice;
         this.monthNextPractice = monthNextPractice;
         this.yearNextPractice = yearNextPractice;
-
         this.uuid = uuid;
-        this.isSelected = false;
     }
 
-    public void updateParameters(int dayNextPractice, String monthNextPractice, int yearNextPractice,
+    public void updateParameters(int dayNextPractice, int monthNextPractice, int yearNextPractice,
                                  int repetitions, float easinessFactor, int interval) {
         this.setDayNextPractice(dayNextPractice);
         this.setMonthNextPractice(monthNextPractice);
@@ -55,11 +43,6 @@ public class Card implements Serializable {
         this.setEasinessFactor(easinessFactor);
         this.setInterval(interval);
     }
-
-
-
-    // Getters
-
     public String getItem1() {
         return item1;
     }
@@ -67,13 +50,8 @@ public class Card implements Serializable {
     public String getItem2() {
         return item2;
     }
-
-    public int getState() {
-        return state;
-    }
-
     public int getDayCreation(){return dayCreation;}
-    public String getMonthCreation(){return monthCreation;}
+    public int getMonthCreation(){return monthCreation;}
 
     public int getYearCreation() {
         return yearCreation;
@@ -83,7 +61,7 @@ public class Card implements Serializable {
         this.dayCreation = dayCreation;
     }
 
-    public void setMonthCreation(String monthCreation) {
+    public void setMonthCreation(int monthCreation) {
         this.monthCreation = monthCreation;
     }
 
@@ -95,7 +73,7 @@ public class Card implements Serializable {
         this.dayNextPractice = dayNextPractice;
     }
 
-    public void setMonthNextPractice(String monthNextPractice) {
+    public void setMonthNextPractice(int monthNextPractice) {
         this.monthNextPractice = monthNextPractice;
     }
 
@@ -124,9 +102,7 @@ public class Card implements Serializable {
     }
 
 
-    public Boolean getSelected() {
-        return isSelected;
-    }
+
 
     // Setters
 
@@ -149,18 +125,11 @@ public class Card implements Serializable {
     public void setRepetitions(int repetitions) {
         this.repetitions = repetitions;
     }
-    public void setState(int state) {
-        this.state = state;
-    }
-
-
-    public void setIsSelected(Boolean isSelected) { this.isSelected = isSelected;}
-
     public int getDayNextPractice() {
         return dayNextPractice;
     }
 
-    public String getMonthNextPractice() {
+    public int getMonthNextPractice() {
         return monthNextPractice;
     }
 

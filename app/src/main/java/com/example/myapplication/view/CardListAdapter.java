@@ -1,43 +1,35 @@
-package com.example.myapplication;
+package com.example.myapplication.view;
 
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.myapplication.R;
+import com.example.myapplication.model.Card;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyDeckListAdapter extends ArrayAdapter<Card> {
+public class CardListAdapter extends ArrayAdapter<Card> {
     Context ctx;
     List<Card> card;
 
-    public MyDeckListAdapter(Context ctx, int resource, List<Card> card) {
+    public CardListAdapter(Context ctx, int resource, List<Card> card) {
         super(ctx, resource, card);
         this.ctx = ctx;
         this.card = card;
     }
 
-    public MyDeckListAdapter(Context ctx, int resource) {
+    public CardListAdapter(Context ctx, int resource) {
         super(ctx, resource);
         this.ctx = ctx;
         this.card = new ArrayList<>(); // Создаем пустой список card
