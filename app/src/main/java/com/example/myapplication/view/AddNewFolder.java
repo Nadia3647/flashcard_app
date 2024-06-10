@@ -28,24 +28,19 @@ public class AddNewFolder extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_all_cards);
         tvFront = (TextView) findViewById(R.id.tvFront);
         tvBack = (TextView) findViewById(R.id.tvBack);
-        tvDone = (TextView) findViewById(R.id.tvDone);
-        tvAdd = (TextView) findViewById(R.id.tvAddAnother);
         edtTitle = (EditText) findViewById(R.id.edtAddTitle);
         ivSave = (ImageView) findViewById(R.id.ivSave) ;
         ivAdd = (ImageView) findViewById(R.id.ivAdd);
         edtFront = (EditText) findViewById(R.id.edtFront);
         edtBack = (EditText) findViewById(R.id.edtBack);
-        tvAdd.setOnClickListener(this);
         ivAdd.setOnClickListener(this);
         ivSave.setOnClickListener(this);
-        tvDone.setOnClickListener(this);
         viewModel = new ViewModelProvider(this).get(AddNewFolderViewModel.class);
     }
     @Override
     public void onClick(View v){
         int id = v.getId();
-        if (id == R.id.ivAdd || id == R.id.tvAddAnother) {
-            //добавление карты в приложении
+        if (id == R.id.ivAdd ) {
             if (!edtFront.getText().toString().equals("") && !edtBack.getText().toString().equals("")){
                 viewModel.addCards(edtFront.getText().toString(), edtBack.getText().toString());
                 edtFront.setText("");
@@ -53,10 +48,10 @@ public class AddNewFolder extends AppCompatActivity implements View.OnClickListe
                 edtFront.requestFocus();
             }
                 else{
-                Toast.makeText(this, "Incomplete card." ,Toast.LENGTH_SHORT);
+                Toast.makeText(this, "Карточка заполнена не полностью." ,Toast.LENGTH_SHORT);
             }
 
-        } else if (id == R.id.ivSave || id == R.id.tvDone) {
+        } else if (id == R.id.ivSave) {
             if (!edtFront.getText().toString().equals("") && !edtBack.getText().toString().equals("")){
                 viewModel.addCards(edtFront.getText().toString(), edtBack.getText().toString());
             }

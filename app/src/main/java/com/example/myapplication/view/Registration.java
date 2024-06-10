@@ -3,8 +3,10 @@ package com.example.myapplication.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,7 +17,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener {
     TextInputEditText edtUser, edtEmail, edtPass1, edtPass2;
-    TextView btnRegister;
+    Button btnRegister;
     ProgressBar progressBar;
     private RegistrationViewModel viewModel;
 
@@ -26,7 +28,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         viewModel = new ViewModelProvider(this).get(RegistrationViewModel.class);
 
-        btnRegister = findViewById(R.id.tvRegisterUser);
+        btnRegister = findViewById(R.id.btnReg);
         edtUser = findViewById(R.id.edtLoginEmail);
         edtEmail = findViewById(R.id.edtEmail);
         edtPass1 = findViewById(R.id.edtPassword1);
@@ -39,7 +41,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.tvRegisterUser) {
+        if (v.getId() == R.id.btnReg) {
             String username = edtUser.getText().toString().trim();
             String email = edtEmail.getText().toString().trim();
             String password1 = edtPass1.getText().toString();
@@ -48,20 +50,18 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             viewModel.registerUser(username, email, password1, password2, new RegistrationViewModel.OnRegistrationListener() {
                 @Override
                 public void onValidationError(String message) {
-                    // Handle validation error
                     Toast.makeText(Registration.this, message, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onRegistrationSuccess(String message) {
-                    // Handle successful registration
                     Toast.makeText(Registration.this, message, Toast.LENGTH_SHORT).show();
-                    // Navigate to next screen or perform necessary actions
+                    Intent i = new Intent(Registration.this, MainActivity.class);
+                    startActivity(i);
                 }
 
                 @Override
                 public void onRegistrationFailure(String message) {
-                    // Handle registration failure
                     Toast.makeText(Registration.this, message, Toast.LENGTH_SHORT).show();
                 }
             });

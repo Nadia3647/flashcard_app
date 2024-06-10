@@ -21,16 +21,16 @@ public class RegistrationViewModel extends ViewModel {
 
     public void registerUser(String username, String email, String password1, String password2, OnRegistrationListener listener) {
         if (username.isEmpty()) {
-            listener.onValidationError("Please enter a username.");
+            listener.onValidationError("Введите имя пользователя.");
             return;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            listener.onValidationError("Please enter a valid email.");
+            listener.onValidationError("Введите корректный пароль.");
             return;
         } else if (password1.isEmpty() || password1.length() < 6) {
-            listener.onValidationError("Password must be at least 6 characters.");
+            listener.onValidationError("Пароль должен содерержать минимум 6 знаков.");
             return;
         } else if (!password1.equals(password2)) {
-            listener.onValidationError("Passwords must match.");
+            listener.onValidationError("Пароли не совпадают.");
             return;
         }
 
@@ -49,13 +49,13 @@ public class RegistrationViewModel extends ViewModel {
                                 .setValue(newUser)
                                 .addOnCompleteListener(task1 -> {
                                     if (task1.isSuccessful()) {
-                                        listener.onRegistrationSuccess("Successfully registered " + username);
+                                        listener.onRegistrationSuccess("Регистрация прошла успешно " + username);
                                     } else {
-                                        listener.onRegistrationFailure("Registration failed.");
+                                        listener.onRegistrationFailure("Ошибка. Попробуйте повторно.");
                                     }
                                 });
                     } else {
-                        listener.onRegistrationFailure("Registration failed.");
+                        listener.onRegistrationFailure("Ошибка. Попробуйте повторно.");
                     }
                 });
     }

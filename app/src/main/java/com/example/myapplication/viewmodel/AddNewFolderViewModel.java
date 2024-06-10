@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.myapplication.model.Card;
-import com.example.myapplication.model.Deck;
+import com.example.myapplication.model.Folder;
 import com.example.myapplication.repository.FolderRepository;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -15,14 +15,14 @@ import java.util.List;
 
 public class AddNewFolderViewModel extends ViewModel {
     private List<Card> cards = new ArrayList<>();
-    private FolderRepository deckRepository;
-    private Deck deck = new Deck();
+    private FolderRepository folderRepository;
+    private Folder folder = new Folder();
 
-    private MutableLiveData<ArrayList<Deck>> allDecks;
+    private MutableLiveData<ArrayList<Folder>> allFolders;
 
     public AddNewFolderViewModel() {
-        deckRepository = new FolderRepository();
-        allDecks = new MutableLiveData<>();
+        folderRepository = new FolderRepository();
+        allFolders = new MutableLiveData<>();
     }
     public void addCards(String item1, String item2){
         cards.add((new Card(item1, item2, giveCurrentDay(), giveCurrentMonth(), giveCurrentYear(),  giveCurrentDay(), giveCurrentMonth(), giveCurrentYear(), 0, 0, 0, cards.size())));
@@ -45,12 +45,12 @@ public class AddNewFolderViewModel extends ViewModel {
         Date date = new Date();
         folderId = String.valueOf(date.getTime());
         folderId = folderId.substring(folderId.length() - 9);
-        deck.setCards(cards);
-        deck.setTitle(title);
-        deck.setAuthor(username);
-        deck.setUid(FirebaseAuth.getInstance().getUid());
-        deck.setDeckId(folderId);
-        deckRepository.addToFirebase(folderId, deck);
+        folder.setCards(cards);
+        folder.setTitle(title);
+        folder.setAuthor(username);
+        folder.setUid(FirebaseAuth.getInstance().getUid());
+        folder.setFolderId(folderId);
+        folderRepository.addToFirebase(folderId, folder);
 
 
     }

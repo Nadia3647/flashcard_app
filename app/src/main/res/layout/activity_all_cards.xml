@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/background"
     android:layout_height="match_parent"
     tools:context=".view.AddNewFolder">
     <EditText
@@ -12,7 +13,10 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
+        android:paddingLeft="10dp"
+        android:paddingVertical="10dp"
         android:ems="10"
+        android:background="@color/up_hint"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,9 +30,12 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
+        android:paddingVertical="10dp"
+        android:paddingLeft="10dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
+        android:background="@color/up_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvFront" />
@@ -37,43 +44,22 @@
         android:id="@+id/tvFront"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Front"
+        android:layout_marginTop="30dp"
+        android:text="Термин"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivAdd" />
+        app:layout_constraintTop_toBottomOf="@+id/edtAddTitle" />
 
     <TextView
         android:id="@+id/tvBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:text="Back"
+        android:layout_marginTop="25dp"
+        android:text="Определение"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtFront" />
-
-    <TextView
-        android:id="@+id/tvDone"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:text="Save/Exit"
-        android:textColor="#B81B1B"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvAddAnother"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="14dp"
-        android:text="Another One"
-        android:textColor="#4CAF50"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDone" />
 
     <EditText
         android:id="@+id/edtAddTitle"
@@ -81,11 +67,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="64dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Title"
-        app:layout_constraintEnd_toStartOf="@+id/tvDone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,18 +77,20 @@
         android:id="@+id/ivSave"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/tvDone"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="27dp"
         app:layout_constraintStart_toEndOf="@+id/edtAddTitle"
-        app:layout_constraintTop_toTopOf="@+id/tvDone"
-        app:srcCompat="@android:drawable/ic_menu_save" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/save" />
 
     <ImageView
         android:id="@+id/ivAdd"
         android:layout_width="22dp"
         android:layout_height="22dp"
-        app:layout_constraintEnd_toStartOf="@+id/tvAddAnother"
-        app:layout_constraintTop_toTopOf="@+id/tvAddAnother"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="27dp"
+        app:layout_constraintStart_toEndOf="@+id/ivSave"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/plus_square" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

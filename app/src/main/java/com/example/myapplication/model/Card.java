@@ -95,16 +95,9 @@ public class Card implements Serializable {
         return interval;
     }
 
-
-
     public Integer getUuid() {
         return uuid;
     }
-
-
-
-
-    // Setters
 
     public void setItem1(String item1) {
         this.item1 = item1;

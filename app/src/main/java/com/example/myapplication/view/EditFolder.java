@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.Card;
-import com.example.myapplication.model.Deck;
+import com.example.myapplication.model.Folder;
 import com.example.myapplication.viewmodel.EditFolderViewModel;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class EditFolder extends AppCompatActivity implements View.OnClickListene
     private TextView tvDone, tvAdd;
     private EditText edtTitle;
     private ImageView ivSave, ivAdd;
-    private Deck thisDeck;
+    private Folder thisFolder;
     private EditFolderViewModel viewModel;
 
     private ListView lvCard;
@@ -36,14 +36,12 @@ public class EditFolder extends AppCompatActivity implements View.OnClickListene
         setContentView(R.layout.activity_edit_folder);
         viewModel = new ViewModelProvider(this).get(EditFolderViewModel.class);
         lvCard = (ListView) findViewById(R.id.lvCard);
-        tvDone = (TextView) findViewById(R.id.tvDone);
-        tvAdd = (TextView) findViewById(R.id.tvAddAnother);
         edtTitle = (EditText) findViewById(R.id.edtAddTitle);
         ivSave = (ImageView) findViewById(R.id.ivSave) ;
         ivAdd = (ImageView) findViewById(R.id.ivAdd);
-        thisDeck = (Deck) getIntent().getSerializableExtra("Deck");
+        thisFolder = (Folder) getIntent().getSerializableExtra("Folder");
 
-        viewModel.initializeCards(thisDeck);
+        viewModel.initializeCards(thisFolder);
         viewModel.getCards().observe(this, new Observer<List<Card>>() {
             @Override
             public void onChanged(List<Card> card) {
@@ -54,20 +52,31 @@ public class EditFolder extends AppCompatActivity implements View.OnClickListene
 
 
         ivAdd.setOnClickListener(this);
-        tvAdd.setOnClickListener(this);
         ivSave.setOnClickListener(this);
-        tvDone.setOnClickListener(this);
 
 
     }
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.ivAdd || id == R.id.tvAddAnother) {
+        if (id == R.id.ivAdd) {
             viewModel.addCard();
+        } else if (id == R.id.ivSave) {
+            List<Card> currentCards = new ArrayList<>();
+            for (int i = 0; i < lvCard.getCount(); i++) {
+                View view = lvCard.getChildAt(i);
+                EditText edtText = view.findViewById(R.id.edtBack);
+                EditText edtText2 = view.findViewById(R.id.edtFront);
+                String text = edtText.getText().toString();
+                String text2 = edtText.getText().toString();
+                Card card = (Card) adapter.getItem(i);
+                card.setItem1(text);
+                card.setItem1(text2);
+                currentCards.add(card);
+            }
 
-        } else if (id == R.id.ivSave || id == R.id.tvDone) {
-            viewModel.save();
+            viewModel.updateCards(currentCards);
+
             Intent i = new Intent(EditFolder.this, MainActivity.class);
             startActivity(i);
         }

@@ -14,22 +14,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.myapplication.R;
-import com.example.myapplication.model.Deck;
-import com.example.myapplication.view.EditFolder;
-import com.example.myapplication.view.ViewCard;
+import com.example.myapplication.model.Folder;
 
 import java.util.List;
 
-public class DeckListAdapter extends ArrayAdapter<Deck> {
+public class FolderListAdapter extends ArrayAdapter<Folder> {
 
     Context ctx;
 
-    List<Deck> deck;
+    List<Folder> folder;
 
-    public DeckListAdapter( Context ctx, int resource, List<Deck> deck) {
-        super( ctx, resource, deck);
+    public FolderListAdapter(Context ctx, int resource, List<Folder> folder) {
+        super( ctx, resource, folder);
         this.ctx = ctx;
-        this.deck = deck;
+        this.folder = folder;
     }
 
     @NonNull
@@ -41,13 +39,13 @@ public class DeckListAdapter extends ArrayAdapter<Deck> {
         TextView title = (TextView) v.findViewById(R.id.tvDeckName);
         ImageView learn = (ImageView) v.findViewById(R.id.learn);
         ImageView edit = (ImageView) v.findViewById(R.id.btnDelete);
-        Deck myDeck = deck.get(position);
-        title.setText(myDeck.getTitle());
+        Folder myFolder = folder.get(position);
+        title.setText(myFolder.getTitle());
         learn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("Deck", deck.get(position));
+                bundle.putSerializable("Folder", folder.get(position));
                 Intent i = new Intent(getContext(), ViewCard.class);
                 i.putExtras(bundle);
                 ctx.startActivity(i);
@@ -58,7 +56,7 @@ public class DeckListAdapter extends ArrayAdapter<Deck> {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("Deck", deck.get(position));
+                bundle.putSerializable("Folder", folder.get(position));
                 Intent i = new Intent(getContext(), EditFolder.class);
                 i.putExtras(bundle);
                 ctx.startActivity(i);

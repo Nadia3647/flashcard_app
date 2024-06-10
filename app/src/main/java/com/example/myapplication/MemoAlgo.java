@@ -9,11 +9,10 @@ import java.time.ZoneId;
 
 public class MemoAlgo {
     public static void SuperMemo2(Card card, int quality) {
-        // From https://stackoverflow.com/questions/49047159/spaced-repetition-algorithm-from-supermemo-sm-2
         if (quality < 0 || quality > 5) {
             // throw error here or ensure elsewhere that quality is always within 0-5
         }
-        // retrieve the stored values (default values if new cards)
+        // retrieve the stored values
         int repetitions = card.getRepetitions();
         float easiness = card.getEasinessFactor();
         int interval = card.getInterval();
@@ -39,7 +38,6 @@ public class MemoAlgo {
         long now = System.currentTimeMillis();
         long nextPracticeTime = now + millisecondsInDay*interval;
         LocalDate nextPracticeDate = toDate(nextPracticeTime);
-
         // Store the nextPracticeDate in the database;
          card.updateParameters(nextPracticeDate.getDayOfMonth(), nextPracticeDate.getMonthValue(), nextPracticeDate.getYear(), repetitions, easiness, interval);
     }

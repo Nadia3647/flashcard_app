@@ -22,10 +22,10 @@ public class LoginViewModel extends ViewModel {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         isUserLoggedIn.setValue(currentUser != null);
     }
-
-    public LiveData<Boolean> getIsUserLoggedIn() {
+    public LiveData<Boolean> isUserLoggedIn() {
         return isUserLoggedIn;
     }
+
 
     public void signInWithEmailAndPassword(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)

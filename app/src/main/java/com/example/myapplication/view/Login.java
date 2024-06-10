@@ -23,20 +23,17 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         editTextEmail = findViewById(R.id.edtLoginEmail);
         editTextPassword = findViewById(R.id.edtPass);
         buttonLog = findViewById(R.id.btnLogin);
         linkReg = findViewById(R.id.tvEnter);
 
-        loginViewModel.getIsUserLoggedIn().observe(this, isLoggedIn -> {
-            if (isLoggedIn) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+        loginViewModel.isUserLoggedIn().observe(this, loggedIn -> {
+            if (loggedIn) {
+                Intent i = new Intent(Login.this, MainActivity.class);
+                startActivity(i);
                 finish();
-            } else {
-                Toast.makeText(Login.this, "Возникла ошибка", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -49,17 +46,14 @@ public class Login extends AppCompatActivity {
         buttonLog.setOnClickListener(view -> {
             String email = String.valueOf(editTextEmail.getText());
             String password = String.valueOf(editTextPassword.getText());
-
             if (TextUtils.isEmpty(email)) {
                 Toast.makeText(Login.this, "Введите почту", Toast.LENGTH_SHORT).show();
                 return;
             }
-
             if (TextUtils.isEmpty(password)) {
                 Toast.makeText(Login.this, "Введите пароль", Toast.LENGTH_SHORT).show();
                 return;
             }
-
             loginViewModel.signInWithEmailAndPassword(email, password);
         });
     }

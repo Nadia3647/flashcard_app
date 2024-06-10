@@ -4,29 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".view.AddNewFolder">
-
-    <TextView
-        android:id="@+id/tvDone"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:text="Save/Exit"
-        android:textColor="#B81B1B"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvAddAnother"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="14dp"
-        android:text="Another One"
-        android:textColor="#4CAF50"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDone" />
 
     <EditText
         android:id="@+id/edtAddTitle"
@@ -34,12 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="64dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:text="Title"
-        app:layout_constraintEnd_toStartOf="@+id/tvDone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,28 +24,30 @@
         android:id="@+id/ivSave"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/tvDone"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="27dp"
         app:layout_constraintStart_toEndOf="@+id/edtAddTitle"
-        app:layout_constraintTop_toTopOf="@+id/tvDone"
-        app:srcCompat="@android:drawable/ic_menu_save" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/save" />
 
     <ImageView
         android:id="@+id/ivAdd"
         android:layout_width="22dp"
         android:layout_height="22dp"
-        app:layout_constraintEnd_toStartOf="@+id/tvAddAnother"
-        app:layout_constraintTop_toTopOf="@+id/tvAddAnother"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="27dp"
+        app:layout_constraintStart_toEndOf="@+id/ivSave"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/plus_square" />
 
     <ListView
         android:id="@+id/lvCard"
         android:layout_width="366dp"
-        android:layout_height="499dp"
+        android:layout_height="600dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="15dp"
-        android:paddingEnd="15dp"
+        android:paddingEnd="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

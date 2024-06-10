@@ -1,53 +1,44 @@
 package com.example.myapplication.viewmodel;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.myapplication.model.Card;
-import com.example.myapplication.model.Deck;
+import com.example.myapplication.model.Folder;
 import com.example.myapplication.repository.FolderRepository;
-import com.example.myapplication.view.MainActivity;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 public class EditFolderViewModel extends ViewModel {
 
     private MutableLiveData<List<Card>> cards = new MutableLiveData<>(new ArrayList<>());
     private MutableLiveData<String> title = new MutableLiveData<>("");
     private MutableLiveData<Boolean> isSaved = new MutableLiveData<>(false);
-    private FolderRepository deckRepository;
-    private Deck thisDeck;
-    public void initializeCards(Deck thisDeck) {
+    private FolderRepository folderRepository;
+    private Folder thisFolder;
+    public void initializeCards(Folder thisFolder) {
         try {
-            cards.setValue(thisDeck.getCards());
+            cards.setValue(thisFolder.getCards());
         }
         catch(Exception e){
-            Log.d("debug", "Empty deck");
+            Log.d("debug", "Empty folder");
         }
     }
 
     public LiveData<List<Card>> getCards() {
+
         return cards;
     }
 
 
     public void addCard() {
-        Card newCard = new Card("", "", giveCurrentDay(), giveCurrentMonth(), giveCurrentYear(), giveCurrentDay(), giveCurrentMonth(), giveCurrentYear(), 0, 0, 0, cards.getValue().size());
+        Card newCard = new Card("m", "m", giveCurrentDay(), giveCurrentMonth(), giveCurrentYear(), giveCurrentDay(), giveCurrentMonth(), giveCurrentYear(), 0, 0, 0, cards.getValue().size());
         List<Card> updatedCards = cards.getValue();
         updatedCards.add(newCard);
         cards.setValue(updatedCards);
@@ -55,11 +46,14 @@ public class EditFolderViewModel extends ViewModel {
 
     public void save() {
         for (Card card : cards.getValue()) {
-            deckRepository.updateCardInDatabase(thisDeck.getDeckId().toString(), card.getUuid(), card, FirebaseDatabase.getInstance().getReference("Decks"));
+            folderRepository.updateCardInDatabase(thisFolder.getFolderId().toString(), card.getUuid(), card, FirebaseDatabase.getInstance().getReference("Folders"));
         }
         isSaved.setValue(true);
     }
 
+    public void updateCards(List<Card> updatedCards) {
+        cards.setValue(updatedCards);
+    }
     public static int giveCurrentDay() {
         LocalDate currentDate = LocalDate.now();
         return currentDate.getDayOfMonth();

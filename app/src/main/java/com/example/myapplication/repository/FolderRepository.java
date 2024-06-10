@@ -5,7 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.myapplication.model.Card;
-import com.example.myapplication.model.Deck;
+import com.example.myapplication.model.Folder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FolderRepository {
-    private ArrayList<Deck> allDecks = new ArrayList<>();
-    public ArrayList<Deck> getAllDecks(String th, OnGetDataListener listener){
-        DatabaseReference rr = FirebaseDatabase.getInstance().getReference("Decks");
+    private ArrayList<Folder> allFolders = new ArrayList<>();
+    public ArrayList<Folder> getAllFolders(String th, OnGetDataListener listener){
+        DatabaseReference rr = FirebaseDatabase.getInstance().getReference("Folders");
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -33,44 +33,44 @@ public class FolderRepository {
                         Card card = cardSnapshot.getValue(Card.class);
                         cards.add(card);
                     }
-                    String did = ds.child("deckId").getValue(String.class);
+                    String did = ds.child("FolderId").getValue(String.class);
 
-                    Deck thisDeck = new Deck(did, uid, title, author, cards);
+                    Folder thisFolder = new Folder(did, uid, title, author, cards);
                     if (th.equals(uid)) {
 
-                        allDecks.add(thisDeck);
+                        allFolders.add(thisFolder);
 
                     }
                 }
-                listener.onSuccess(allDecks);
+                listener.onSuccess(allFolders);
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("MainActivity:", "Can't fetch all decks");
+                Log.d("MainActivity:", "Can't fetch all folders");
             }
         };
         rr.addListenerForSingleValueEvent(eventListener);
-        Log.d("Main:", "decks" + allDecks.size());
-        return allDecks;
+        return allFolders;
     }
-    public void addToFirebase(String deckId, Deck deck){
-        FirebaseDatabase.getInstance().getReference("Decks").child(deckId)
-                .setValue(deck).addOnCompleteListener(new OnCompleteListener<Void>() {
+    public void addToFirebase(String folderId, Folder folder){
+        FirebaseDatabase.getInstance().getReference("Folders").child(folderId)
+                .setValue(folder).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
-                            FirebaseDatabase.getInstance().getReference("Users").child(deck.getUid()).child("MyDecks").child(deckId).setValue(deckId);
+                            FirebaseDatabase.getInstance().getReference("Users").child(folder.getUid()).child("MyFolders").child(folderId).setValue(folderId);
 ;
                         }
                         else{
+                            Log.d("FolderRepository:", "Error");
                         }
                     }
                 });
     }
-    public void updateCardInDatabase(String deckId, Integer cardUuid, Card card, DatabaseReference ref) {
-        ref.child(deckId).child("cards").child(cardUuid.toString()).setValue(card);
+    public void updateCardInDatabase(String folderId, Integer cardUuid, Card card, DatabaseReference ref) {
+        ref.child(folderId).child("cards").child(cardUuid.toString()).setValue(card);
     }
 
 }

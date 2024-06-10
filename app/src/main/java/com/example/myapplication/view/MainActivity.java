@@ -11,13 +11,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.model.Deck;
+import com.example.myapplication.model.Folder;
 import com.example.myapplication.viewmodel.MainViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -27,48 +26,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private MainViewModel viewModel;
-    ArrayList<Deck> allDecks = new ArrayList<>();
-    private ListView lvDecks;
+    ArrayList<Folder> allFolders = new ArrayList<>();
+    private ListView lvFolders;
     FirebaseAuth mAuth;
 
-    private TextView addDeck, publicDecks, logout;
-    private SearchView svDecks;
+    private TextView addFolder, publiFolders, logout;
+    private SearchView svFolders;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_folders);
-        publicDecks = (TextView) findViewById(R.id.tvPublicDecks);
+        publiFolders = (TextView) findViewById(R.id.tvPublicDecks);
         logout = (TextView) findViewById(R.id.tvLogout);
-        addDeck = (TextView)findViewById(R.id.textView6);
-        lvDecks = (ListView) findViewById(R.id.lvDecksPublic);
-        //set logout stuff:
+        addFolder = (TextView)findViewById(R.id.textView6);
+        lvFolders = (ListView) findViewById(R.id.lvDecksPublic);
         logout.setTextColor(Color.parseColor("#ff0000"));
-        addDeck.setOnClickListener(this);
-        publicDecks.setOnClickListener(this);
+        addFolder.setOnClickListener(this);
         logout.setOnClickListener(this);
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-        viewModel.fetchAllDecks();
-        viewModel.getAllDecks().observe(this, new Observer<ArrayList<Deck>>() {
+        viewModel.fetchAllFolders();
+        viewModel.getAllFolders().observe(this, new Observer<ArrayList<Folder>>() {
             @Override
-            public void onChanged(ArrayList<Deck> decks) {
+            public void onChanged(ArrayList<Folder> folders) {
 
-                DeckListAdapter adapter = new DeckListAdapter(MainActivity.this, R.layout.folder_lv_item, decks);
-                lvDecks.setAdapter(adapter);
+                FolderListAdapter adapter = new FolderListAdapter(MainActivity.this, R.layout.folder_lv_item, folders);
+                lvFolders.setAdapter(adapter);
             }
         });
 
-        lvDecks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Intent i = new Intent(MainActivity.this, ViewCard.class);
-                i.putExtra("Deck", allDecks.get(position));
-                startActivity(i);
-            }
-        });
 
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -88,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void logout(){
         mAuth.signOut();
         Intent i = new Intent(MainActivity.this, Login.class);
-        i.putExtra("allDecks", allDecks);
+        i.putExtra("allFolders", allFolders);
         startActivity(i);
     }
     public void addCards(){

@@ -1,10 +1,12 @@
 package com.example.myapplication.viewmodel;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.myapplication.model.Deck;
+import com.example.myapplication.model.Folder;
 import com.example.myapplication.repository.FolderRepository;
 import com.example.myapplication.repository.OnGetDataListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,32 +16,32 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 public class MainViewModel extends ViewModel {
-    private FolderRepository deckRepository;
+    private FolderRepository folderRepository;
     FirebaseDatabase rootRef;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser currentUser = mAuth.getCurrentUser();
     String uid = currentUser.getUid();
-    private MutableLiveData<ArrayList<Deck>> allDecks;
+    private MutableLiveData<ArrayList<Folder>> allFolders;
 
     public MainViewModel() {
-        deckRepository = new FolderRepository();
-        allDecks = new MutableLiveData<>();
+        folderRepository = new FolderRepository();
+        allFolders = new MutableLiveData<>();
     }
 
-    public LiveData<ArrayList<Deck>> getAllDecks() {
-        return allDecks;
+    public LiveData<ArrayList<Folder>> getAllFolders() {
+        return allFolders;
     }
 
-    public void fetchAllDecks() {
-        deckRepository.getAllDecks(uid, new OnGetDataListener() {
+    public void fetchAllFolders() {
+        folderRepository.getAllFolders(uid, new OnGetDataListener() {
             @Override
-            public void onSuccess(ArrayList<Deck> decks) {
-                allDecks.setValue(decks); // здесь произошли изменения
+            public void onSuccess(ArrayList<Folder> folders) {
+                allFolders.setValue(folders);
             }
 
             @Override
             public void onFailure() {
-                // Обработайте ошибку
+                Log.d("debug", "Error");
             }
         });
 

@@ -32,7 +32,7 @@ public class CardListAdapter extends ArrayAdapter<Card> {
     public CardListAdapter(Context ctx, int resource) {
         super(ctx, resource);
         this.ctx = ctx;
-        this.card = new ArrayList<>(); // Создаем пустой список card
+        this.card = new ArrayList<>();
     }
 
     @NonNull
@@ -48,7 +48,6 @@ public class CardListAdapter extends ArrayAdapter<Card> {
             edtFront.setText(myCard.getItem1());
             edtBack.setText(myCard.getItem2());
         } else {
-            // Если card не передан или пустой, оставляем EditText пустыми
             edtFront.setText("");
             edtBack.setText("");
         }

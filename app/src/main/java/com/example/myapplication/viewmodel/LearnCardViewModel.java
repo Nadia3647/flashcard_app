@@ -1,6 +1,5 @@
 package com.example.myapplication.viewmodel;
 
-import android.content.Intent;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -9,7 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.myapplication.MemoAlgo;
 import com.example.myapplication.model.Card;
-import com.example.myapplication.model.Deck;
+import com.example.myapplication.model.Folder;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -25,16 +24,16 @@ public class LearnCardViewModel  extends ViewModel {
 
     private Card currentCard;
 
-    public void initializeDeck(Deck thisDeck) {
+    public void initializeFolder(Folder thisFolder) {
         try {
-            Queue<Card> q = getTrainingQueue(thisDeck.getCards());
+            Queue<Card> q = getTrainingQueue(thisFolder.getCards());
             trainingCardsQueueLiveData.setValue(q);
             currentCard=q.poll();
-            Log.d("debug", "Empty deck"+getTrainingQueue(thisDeck.getCards()).size());
+            Log.d("debug", "Empty folder"+getTrainingQueue(thisFolder.getCards()).size());
 
         }
         catch(Exception e){
-            Log.d("debug", "Empty deck");
+            Log.d("debug", "Empty folder");
         }
     }
 
@@ -42,12 +41,12 @@ public class LearnCardViewModel  extends ViewModel {
 
     public void NextOrEndForTraining() {
         Queue<Card> queue = trainingCardsQueueLiveData.getValue();
-            currentCard = queue.poll();
-            trainingCardsQueueLiveData.setValue(queue);
+        currentCard = queue.poll();
+        trainingCardsQueueLiveData.setValue(queue);
     }
 
-    public String getDeckTitle(Deck thisDeck){
-        return thisDeck.getTitle();
+    public String getFolderTitle(Folder thisFolder){
+        return thisFolder.getTitle();
     }
     public String getItem2(){
         return currentCard.getItem2();
@@ -55,8 +54,8 @@ public class LearnCardViewModel  extends ViewModel {
     public String getItem1(){
         return currentCard.getItem1();
     }
-    public void setCardParamAndProceed(int quality, Deck thisDeck) {
-        setCardParam(quality, thisDeck);
+    public void setCardParamAndProceed(int quality, Folder thisFolder) {
+        setCardParam(quality, thisFolder);
         NextOrEndForTraining();
     }
     public void addToQueue(){
@@ -65,10 +64,10 @@ public class LearnCardViewModel  extends ViewModel {
         trainingCardsQueueLiveData.setValue(queue);
     }
 
-    private void setCardParam(int quality, Deck thisDeck) {
+    private void setCardParam(int quality, Folder thisFolder) {
         if (quality != 1){
             MemoAlgo.SuperMemo2(currentCard, quality);
-            updateCardInDatabase(thisDeck.getDeckId().toString(),currentCard.getUuid(), currentCard, FirebaseDatabase.getInstance().getReference("Decks"));
+            updateCardInDatabase(thisFolder.getFolderId().toString(),currentCard.getUuid(), currentCard, FirebaseDatabase.getInstance().getReference("Folders"));
         }
     }
     public boolean check (){
@@ -79,8 +78,8 @@ public class LearnCardViewModel  extends ViewModel {
         return false;
     }
 
-    public void updateCardInDatabase(String deckId, Integer cardUuid, Card card, DatabaseReference ref) {
-        ref.child(deckId).child("cards").child(cardUuid.toString()).setValue(card);
+    public void updateCardInDatabase(String folderId, Integer cardUuid, Card card, DatabaseReference ref) {
+        ref.child(folderId).child("cards").child(cardUuid.toString()).setValue(card);
     }
 
     private Queue<Card> getTrainingQueue(List<Card> cards) {
